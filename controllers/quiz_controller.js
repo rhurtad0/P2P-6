@@ -15,3 +15,7 @@ exports.answer = function(req, res){
 		res.render('quizes/answer', { respuesta: "Incorrecto"});
 	}
 };
+
+exports.author = function(req, res){
+	res.render('author',{ autor: "Rodrigo Hurtado", edad: 27, pais:"Colombia"});
+};
