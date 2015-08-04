@@ -1,4 +1,4 @@
-var models = require('../models/models.js');
+var models = require('../models/models');
 
 //interaccion de las peticiones del router
 //get question
