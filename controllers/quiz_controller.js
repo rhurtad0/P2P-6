@@ -18,10 +18,20 @@ exports.load = function(req, res, next, quizId){
 
 //get /quizes
 exports.index = function (req, res){
-	models.Quiz.findAll().then(function(quizes){
-		res.render('quizes/index', { quizes : quizes});
+	if(req.query.search){
+		var search = "%"+req.query.search+"%";
+		models.Quiz.findAll({where: ["pregunta like lower(?)", search.replace(/(\s)+/g, '%')],
+							order : [ ['pregunta', 'DESC' ] ]
+		}).then( function(quizes){
+			console.log(quizes);
+			res.render('quizes/index', { quizes : quizes });
+		});
+	}else{
+		models.Quiz.findAll().then(function(quizes){
+			res.render('quizes/index', { quizes : quizes});
+		}
+		).catch(function(error){ next(error);})
 	}
-	).catch(function(error){ next(error);})
 };
 
 //get question
