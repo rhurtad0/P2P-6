@@ -20,7 +20,7 @@ exports.load = function(req, res, next, quizId){
 exports.index = function (req, res){
 	if(req.query.search){
 		var search = "%"+req.query.search+"%";
-		models.Quiz.findAll({where: ["pregunta like lower(?)", search.replace(/(\s)+/g, '%')],
+		models.Quiz.findAll({where: ["lower(pregunta) like lower(?)", search.replace(/(\s)+/g, '%')],
 							order : [ ['pregunta', 'DESC' ] ]
 		}).then( function(quizes){
 			console.log(quizes);
