@@ -53,3 +53,23 @@ exports.answer = function(req, res){
 exports.author = function(req, res){
 	res.render('author',{ autor: "Rodrigo Hurtado", edad: 27, pais:"Colombia"});
 };
+
+//get new
+exports.new = function(req, res){
+	var quiz = models.Quiz.build(
+				{pregunta:"Pregunta", respuesta:"Respuesta"}
+			);
+
+	res.render('quizes/new', {quiz: quiz});	
+}
+
+//post /quizes/create
+
+exports.create = function(req, res){
+	var quiz = models.Quiz.build( req.body.quiz );
+
+	//almacena en la base de datos los campos pregunta y respuesta
+	quiz.save({fields: ["pregunta","respuesta"]}).then(function(){
+		res.redirect('/quizes');
+	})
+};
