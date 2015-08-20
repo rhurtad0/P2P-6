@@ -1,6 +1,9 @@
 <table align='center'>
+<th> tema</th> <th> pregunta</th> <th colspan='2'>opciones </th>
 <% var i; for( i = 0; i< quizes.length; i++ ) { %>
-<tr><td><a href="/quizes/<%=quizes[i].id%>"><%= quizes[i].pregunta %></a></td>
+<tr>
+<td><%=quizes[i].tema%> &nbsp;</td>
+<td><a href="/quizes/<%=quizes[i].id%>"><%= quizes[i].pregunta %></a></td>
 <td> <a href="/quizes/<%=quizes[i].id %>/edit"><button>editar</button></a></td>
 <td>
 	<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
