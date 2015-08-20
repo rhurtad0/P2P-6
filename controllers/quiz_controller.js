@@ -72,16 +72,13 @@ exports.create = function(req, res){
 		if(err){
 			res.render('quizes/new', {quiz : quiz, errors : err.errors});
 		}else{
+			//almacena en la base de datos los campos pregunta y respuesta
 			quiz.save({fields: ["pregunta", "respuesta"]}).then( function(){
 				res.redirect('/quizes');
 			})
 		}
 	});
-
-	//almacena en la base de datos los campos pregunta y respuesta
-	quiz.save({fields: ["pregunta","respuesta"]}).then(function(){
-		res.redirect('/quizes');
-	})
+	
 };
 
 // get quizes/:quizId/edit
@@ -108,4 +105,14 @@ exports.update = function( req, res){
 		}
 	}
 	);
+};
+
+//delete /quizes/:quizId(\\d+)
+
+exports.destroy = function(req, res){
+	req.quiz.destroy().then( function() {
+		res.redirect('/quizes');
+	}).catch(function(error){
+		next(error); 
+	});
 };
